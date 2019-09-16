@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+.statsSection {
+  margin: 30px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: "Roboto", sans-serif;
+}
+
+.title {
+  display: block;
+  flex-basis: 100%;
+  text-transform: uppercase;
+  text-align: center;
+  background-color: #fff;
+  color: #475965;
+  font-size: 16px;
+  margin: 0;
+  padding: 30px 0;
+}
+
+.statList {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  text-align: center;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex-wrap: wrap;
+  width: 65px;
+  height: 60px;
+  background-color: teal;
+}
+
+.label,
+.percentage {
+  display: block;
+  flex-basis: 100%;
+  margin: 0;
+  padding: 0;
+  height: 30px;
+  color: #fff;
+}
+
+.label {
+  font-size: 12px;
+  line-height: 40px;
+}
+
+.percentage {
+  font-size: 18px;
+}
