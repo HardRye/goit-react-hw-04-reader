@@ -21,21 +21,17 @@ export default class Reader extends Component {
     ).isRequired,
   };
 
-  handleNext = () => {
+  handleButton = ({ target }) => {
     const { items } = this.props;
-    if (this.state.index !== items.length - 1) {
-      this.setState(prevState => ({
-        index: prevState.index + 1,
-      }));
-    }
-  };
-
-  handlePrev = () => {
-    if (this.state.index !== 0) {
-      this.setState(prevState => ({
-        index: prevState.index - 1,
-      }));
-    }
+    const { index } = this.state;
+    this.setState(prevState => {
+      if (target.name === 'next' && index !== items.length - 1) {
+        return { index: prevState.index + 1 };
+      }
+      if (target.name === 'prev' && index !== 0) {
+        return { index: prevState.index - 1 };
+      }
+    });
   };
 
   render() {
@@ -48,8 +44,7 @@ export default class Reader extends Component {
         <Controls
           index={index}
           maxIndex={items.length}
-          handleNext={this.handleNext}
-          handlePrev={this.handlePrev}
+          handleButton={this.handleButton}
         />
       </div>
     );

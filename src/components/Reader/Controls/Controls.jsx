@@ -2,22 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Controls.module.css';
 
-const Controls = ({ index, maxIndex, handleNext, handlePrev }) => {
+const Controls = ({ index, maxIndex, handleButton }) => {
   return (
     <section className={styles.controls}>
       <button
         type="button"
+        name="prev"
         className={index === 0 ? styles.buttonDisabled : styles.button}
-        onClick={handlePrev}
+        onClick={handleButton}
       >
         Назад
       </button>
       <button
         type="button"
+        name="next"
         className={
           index === maxIndex - 1 ? styles.buttonDisabled : styles.button
         }
-        onClick={handleNext}
+        onClick={handleButton}
       >
         Вперед
       </button>
@@ -28,8 +30,7 @@ const Controls = ({ index, maxIndex, handleNext, handlePrev }) => {
 Controls.propTypes = {
   index: PropTypes.number.isRequired,
   maxIndex: PropTypes.number.isRequired,
-  handleNext: PropTypes.func.isRequired,
-  handlePrev: PropTypes.func.isRequired,
+  handleButton: PropTypes.func.isRequired,
 };
 
 export default Controls;
