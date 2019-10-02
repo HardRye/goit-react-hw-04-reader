@@ -23,22 +23,15 @@
   text-decoration: none;
   color: #fff;
   cursor: pointer;
+  outline: none;
+}
+
+.button[disabled] {
+  pointer-events: none;
+  background-color: #bdbdbd;
 }
 
 .button:hover,
 .button:focus {
   background-color: #1f65d6;
-  outline: none;
-}
-
-.buttonDisabled {
-  composes: button;
-  pointer-events: none;
-  background-color: #bdbdbd;
-}
-
-.buttonDisabled:hover,
-.buttonDisabled:focus {
-  background-color: #bdbdbd;
-  outline: none;
 }

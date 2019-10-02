@@ -8,7 +8,7 @@ import styles from './Reader.module.css';
 
 export default class Reader extends Component {
   state = {
-    index: 0,
+    currentPage: 0,
   };
 
   static propTypes = {
@@ -21,30 +21,24 @@ export default class Reader extends Component {
     ).isRequired,
   };
 
-  handleButton = ({ target }) => {
-    const { items } = this.props;
-    const { index } = this.state;
-    this.setState(prevState => {
-      if (target.name === 'next' && index !== items.length - 1) {
-        return { index: prevState.index + 1 };
-      }
-      if (target.name === 'prev' && index !== 0) {
-        return { index: prevState.index - 1 };
-      }
-    });
+  handleControlButton = ({ target: { name } }) => {
+    this.setState(prevState => ({
+      currentPage:
+        name === 'next' ? prevState.currentPage + 1 : prevState.currentPage - 1,
+    }));
   };
 
   render() {
-    const { index } = this.state;
+    const { currentPage } = this.state;
     const { items } = this.props;
     return (
       <div className={styles.reader}>
-        <Publication item={items[index]} />
-        <Counter index={index} maxIndex={items.length} />
+        <Publication item={items[currentPage]} />
+        <Counter currentPage={currentPage} maxCurrentPage={items.length} />
         <Controls
-          index={index}
-          maxIndex={items.length}
-          handleButton={this.handleButton}
+          currentPage={currentPage}
+          maxCurrentPage={items.length}
+          handleControlButton={this.handleControlButton}
         />
       </div>
     );

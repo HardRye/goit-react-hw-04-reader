@@ -4,8 +4,5 @@ import items from '../../assets/publications.json';
 
 // console.log(items);
 
-const App = () => {
-  return <Reader items={items} />;
-};
-
+const App = () => <Reader items={items} />;
 export default App;
