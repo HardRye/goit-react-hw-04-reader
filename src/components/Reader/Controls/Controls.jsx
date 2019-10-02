@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Controls.module.css';
 
-const Controls = ({ currentPage, maxCurrentPage, handleControlButton }) => (
+const Controls = ({ currentPage, maxPage, handleControlButton }) => (
   <section className={styles.controls}>
     <button
       type="button"
@@ -17,7 +17,7 @@ const Controls = ({ currentPage, maxCurrentPage, handleControlButton }) => (
       type="button"
       name="next"
       className={styles.button}
-      disabled={currentPage === maxCurrentPage - 1}
+      disabled={currentPage === maxPage - 1}
       onClick={handleControlButton}
     >
       Вперед
@@ -27,7 +27,7 @@ const Controls = ({ currentPage, maxCurrentPage, handleControlButton }) => (
 
 Controls.propTypes = {
   currentPage: PropTypes.number.isRequired,
-  maxCurrentPage: PropTypes.number.isRequired,
+  maxPage: PropTypes.number.isRequired,
   handleControlButton: PropTypes.func.isRequired,
 };
 

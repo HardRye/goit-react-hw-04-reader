@@ -34,10 +34,10 @@ export default class Reader extends Component {
     return (
       <div className={styles.reader}>
         <Publication item={items[currentPage]} />
-        <Counter currentPage={currentPage} maxCurrentPage={items.length} />
+        <Counter currentPage={currentPage} maxPage={items.length} />
         <Controls
           currentPage={currentPage}
-          maxCurrentPage={items.length}
+          maxPage={items.length}
           handleControlButton={this.handleControlButton}
         />
       </div>
