@@ -3,44 +3,63 @@ import PropTypes from 'prop-types';
 import Publication from './Publication/Publication';
 import Counter from './Counter/Counter';
 import Controls from './Controls/Controls';
+import publications from '../../assets/publications.json';
+import { getPageFromLocation, isPageEligible } from '../../helpers/helpers';
 
 import styles from './Reader.module.css';
 
-export default class Reader extends Component {
-  state = {
-    currentPage: 0,
+class Reader extends Component {
+  static propTypes = {
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }).isRequired,
+    location: PropTypes.shape({
+      search: PropTypes.string.isRequired,
+    }).isRequired,
   };
 
-  static propTypes = {
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        text: PropTypes.string.isRequired,
-      }).isRequired,
-    ).isRequired,
-  };
+  async componentDidMount() {
+    const { history, location } = this.props;
+    const queryPage = Number(getPageFromLocation(location));
+
+    if (!isPageEligible(queryPage, publications)) {
+      history.push({
+        ...location,
+        search: 'page=1',
+        pathname: '/reader',
+      });
+    }
+  }
 
   handleControlButton = ({ target: { name } }) => {
-    this.setState(prevState => ({
-      currentPage:
-        name === 'next' ? prevState.currentPage + 1 : prevState.currentPage - 1,
-    }));
+    const { history, location } = this.props;
+    const searchPage = Number(getPageFromLocation(location));
+
+    history.push({
+      ...location,
+      search: `page=${name === 'next' ? searchPage + 1 : searchPage - 1}`,
+    });
   };
 
   render() {
-    const { currentPage } = this.state;
-    const { items } = this.props;
+    const { location } = this.props;
+    const queryPage = Number(getPageFromLocation(location));
+    const currentPage = isPageEligible(queryPage, publications)
+      ? queryPage - 1
+      : 0;
+
     return (
       <div className={styles.reader}>
-        <Publication item={items[currentPage]} />
-        <Counter currentPage={currentPage} maxPage={items.length} />
         <Controls
           currentPage={currentPage}
-          maxPage={items.length}
+          maxPage={publications.length}
           handleControlButton={this.handleControlButton}
         />
+        <Counter currentPage={currentPage} maxPage={publications.length} />
+        <Publication item={publications[currentPage]} />
       </div>
     );
   }
 }
+
+export default Reader;
